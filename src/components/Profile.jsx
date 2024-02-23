@@ -1,6 +1,8 @@
 import { Avatar} from "@mui/material";
+import { SiTrustedshops } from "react-icons/si";
 import { useState } from "react";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Edit from "./Modal/Edit";
 const Profile = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -14,6 +16,11 @@ const Profile = () => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
       };
+      const [open,setOpen]=useState(false);
+      const handleEdit=()=>{
+        console.log("hii")
+        setOpen(true);
+      }
     
       return (
         <div className="flex items-center" style={{display:"flex",flexDirection:'column',width:'100%'}}>
@@ -76,14 +83,18 @@ const Profile = () => {
               />
               </div>
           </div>
-          <div style={{textAlign:'end',marginTop:'2rem'}} >
-            <button  onClick={() => console.log(formData)} style={{width:'125px',height:"35px",border:'none',color:"white",borderRadius:'5px',background:"#1976d2"}}>
-              Update Profile
-            </button>
+          <div style={{marginTop:'1rem',display:'flex',justifyContent:"flex-end",flexDirection:"row",alignContent:"center"}} >
+           <button onClick={handleEdit} style={{marginRight:'1rem',background:"#92e427",fontSize:'16px',border:"none",color:'white',borderRadius:'5px',padding:'10px'}}>Cancel</button>
+           <button onClick={handleEdit} style={{display:"flex",fontSize:'16px',alignItems:"center",background:"rgba(0, 0, 0, 0.87)",border:"none",color:'white',borderRadius:'5px',padding:'10px'}}>Edit Profile</button>
           </div>
+          {/* modal  */}
+          {
+            open &&
+            <Edit open={open} setOpen={setOpen}/>
+          }
           </div>
           <div>
-            <Avatar alt="Profile Image" src={formData.image} sx={{ width: 100, height: 100, margin: 'auto' }} />
+            <SiTrustedshops style={{fontSize:"100px",color:"rgba(0, 0, 0, 0.87)"}}/>
           </div>
         </div>
       </div>

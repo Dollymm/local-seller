@@ -8,6 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
+import { useState } from 'react';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -20,6 +21,27 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export default function Edit(props) {
   const { open, setOpen } = props;
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    number:'',
+    totalItemsPurchased: 0,
+    totalPriceInCart: 0
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  //validate
+  
+  
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    console.log(formData)
+handleClose()
+
+  }
 
   const handleClose = () => {
     setOpen(false);
@@ -44,24 +66,66 @@ export default function Edit(props) {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-            magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-            ullamcorper nulla non metus auctor fringilla.
-          </Typography>
+        <div style={{display:'flex',justifyContent:"space-evenly",flexDirection:"row",width:'100%'}}>
+  <div style={{marginTop:'2rem',width:"100%"}}>   
+    <div style={{display:'flex',flexDirection:'column',gap:'2rem',width:'100%'}}>
+      <div>
+        <span>Name</span>
+        <input 
+          type="text" 
+          name="name" 
+          style={{width:"100%",height:"35px",borderRadius:'10px'}}
+          value={formData.name} 
+          onChange={handleChange} 
+          placeholder="Name" 
+          className="mb-2 p-2 w-full border rounded"
+        />
+      </div>
+      <div>
+        <span>Mobile Number</span>
+        <input 
+          type="number" 
+          name="number" 
+          style={{width:"100%",height:"35px",borderRadius:'10px'}}
+          value={formData.number} 
+          onChange={handleChange} 
+          placeholder="mobile number" 
+
+          className="mb-2 p-2 w-full border rounded"
+          required
+        />
+      </div>
+      <div>
+        <span>Email address</span>
+        <input 
+          type="text" 
+          name="email" 
+          style={{width:"100%",height:"35px",borderRadius:'10px'}}
+          value={formData.email} 
+          onChange={handleChange} 
+          placeholder="Email" 
+          className="mb-2 p-2 w-full border rounded"
+        />
+      </div>
+      <div>
+        <span>Total Order Placed</span>
+        <input 
+          type="number" 
+          name="totalItemsPurchased" 
+          style={{width:"100%",height:"35px",borderRadius:'10px'}}
+          value={formData.totalItemsPurchased} 
+          onChange={handleChange} 
+          placeholder="Total Items Purchased" 
+          className="mb-2 p-2 w-full border rounded"
+        />
+      </div>
+    </div>
+  </div>
+</div>
         </DialogContent>
         <DialogActions>
         <button style={{marginRight:'1rem',background:"#92e427",fontSize:'16px',border:"none",color:'white',borderRadius:'5px',padding:'10px'}}>Cancel</button>
-           <button  style={{display:"flex",fontSize:'16px',alignItems:"center",background:"rgba(0, 0, 0, 0.87)",border:"none",color:'white',borderRadius:'5px',padding:'10px'}}>Save</button>
+           <button  style={{display:"flex",fontSize:'16px',alignItems:"center",background:"rgba(0, 0, 0, 0.87)",border:"none",color:'white',borderRadius:'5px',padding:'10px'}} onClick={handleSubmit}>Save</button>
         </DialogActions>
       </BootstrapDialog>
     </React.Fragment>
